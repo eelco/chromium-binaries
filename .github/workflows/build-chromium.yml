@@ -31,11 +31,11 @@ jobs:
       - name: Install dependencies
         run: dnf install -y tar gzip git
       - uses: actions/checkout@v4
+      - uses: ./.github/actions/clone-source
       - uses: ./.github/actions/install-clang
         with:
           architecture: ${{ matrix.architecture }}
       - uses: ./.github/actions/install-python
-      - uses: ./.github/actions/clone-source
       - uses: ./.github/actions/sync-source-dependencies
         with:
           architecture: ${{ matrix.architecture }}
