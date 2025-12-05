@@ -10,7 +10,7 @@ runs:
     - name: Determine version
       shell: bash
       run: echo "VERSION=$(sed --regexp-extended 's~[^0-9]+~~g' chrome/VERSION | tr '\n' '.' | sed 's~[.]$~~')" >> $GITHUB_ENV
-      working-directory: /home/runner/src
+      working-directory: /root/src
     - run: |
         mkdir -p "${HOME}/build/system"
         cp /usr/lib64/libdbus-1.so.3 "${HOME}/build/system"
@@ -49,7 +49,7 @@ runs:
         cp out/Default/xdg-mime "${HOME}/build/chrome"
         cp out/Default/xdg-settings "${HOME}/build/chrome"
       shell: bash
-      working-directory: /home/runner/src
+      working-directory: /root/src
     - run: |
         mkdir -p "${HOME}/build/headless_shell"
         strip -o "${HOME}/build/headless_shell/headless_shell" out/Default/headless_shell
@@ -61,7 +61,7 @@ runs:
         cp out/Default/headless_lib_data.pak "${HOME}/build/headless_shell"
         cp out/Default/headless_lib_strings.pak "${HOME}/build/headless_shell"
       shell: bash
-      working-directory: /home/runner/src
+      working-directory: /root/src
     - run: |
         zip -r "system-${VERSION}-${RUNNER_LABEL/,/-}.zip" system
         zip -r "chrome-${VERSION}-${RUNNER_LABEL/,/-}.zip" chrome

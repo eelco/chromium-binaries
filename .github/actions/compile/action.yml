@@ -9,20 +9,20 @@ runs:
   steps:
     - run: git apply "${GITHUB_WORKSPACE}/assets/patches/source/fix-disable-speech-service.patch"
       shell: bash
-      working-directory: /home/runner/src
+      working-directory: /root/src
     - name: Create output dir
       shell: bash
       run: mkdir out/Default
-      working-directory: /home/runner/src
+      working-directory: /root/src
     - name: Configure the build
       shell: bash
       run: cp "${GITHUB_WORKSPACE}/assets/args.gn" out/Default/args.gn
-      working-directory: /home/runner/src
+      working-directory: /root/src
     - name: Set up the build
       run: gn gen out/Default
       shell: bash
-      working-directory: /home/runner/src
+      working-directory: /root/src
     - name: Build headless_shell
       run: autoninja -C out/Default headless_shell chrome
       shell: bash
-      working-directory: /home/runner/src
+      working-directory: /root/src
