@@ -9,13 +9,13 @@ runs:
   steps:
     - run: git apply "${GITHUB_WORKSPACE}/assets/patches/dependencies/disable-sysroots-download.patch"
       shell: bash
-      working-directory: /root/src
+      working-directory: ${{ github.workspace }}/chromium
     - run: git apply "${GITHUB_WORKSPACE}/assets/patches/dependencies/disable-reclient-dep.patch"
       shell: bash
-      working-directory: /root/src
+      working-directory: ${{ github.workspace }}/chromium
       if: ${{ inputs.architecture == 'arm64' }}
-    - run: cp "${GITHUB_WORKSPACE}/assets/gclient.txt" /home/runner/.gclient
+    - run: cp "${GITHUB_WORKSPACE}/assets/gclient.txt" "${GITHUB_WORKSPACE}/.gclient"
       shell: bash
     - run: gclient sync -D --force --reset --no-history
       shell: bash
-      working-directory: /root/src
+      working-directory: ${{ github.workspace }}/chromium

@@ -9,12 +9,12 @@ runs:
   steps:
     - run: git apply "${GITHUB_WORKSPACE}/assets/patches/clang/disable-sysroots-aarch64.patch"
       shell: bash
-      working-directory: /root/src
+      working-directory: ${{ github.workspace }}/chromium
       if: ${{ inputs.architecture == 'arm64' }}
     - run: git apply "${GITHUB_WORKSPACE}/assets/patches/clang/disable-sysroots-x86.patch"
       shell: bash
-      working-directory: /root/src
+      working-directory: ${{ github.workspace }}/chromium
       if: ${{ inputs.architecture == 'x86' }}
     - run: ./tools/clang/scripts/build.py --without-android --without-fuchsia --use-system-cmake --host-cc /bin/clang --host-cxx /bin/clang++ --with-ml-inliner-model=''
       shell: bash
-      working-directory: /root/src
+      working-directory: ${{ github.workspace }}/chromium

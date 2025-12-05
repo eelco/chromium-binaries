@@ -5,20 +5,20 @@ runs:
   steps:
     - name: Clone source code
       shell: bash
-      run: git clone --depth=1 https://github.com/chromium/chromium.git --branch $(<${GITHUB_WORKSPACE}/chromium-version) --single-branch --quiet "${HOME}/src"
+      run: git clone --depth=1 https://github.com/chromium/chromium.git --branch $(<${GITHUB_WORKSPACE}/chromium-version) --single-branch --quiet "${GITHUB_WORKSPACE}/chromium"
     - name: Clone depot tools
       shell: bash
-      run: git clone https://chromium.googlesource.com/chromium/tools/depot_tools --quiet "${HOME}/depot_tools"
+      run: git clone https://chromium.googlesource.com/chromium/tools/depot_tools --quiet "${GITHUB_WORKSPACE}/depot_tools"
     - name: Checkout matching depot tools
       shell: bash
       run: |
-        cd "${HOME}/src"
+        cd "${GITHUB_WORKSPACE}/chromium"
         COMMIT_DATE="$(git log -n 1 --pretty=format:%ci)"
-        cd "${HOME}/depot_tools"
+        cd "${GITHUB_WORKSPACE}/depot_tools"
         git checkout --quiet $(git rev-list -n 1 --before="$COMMIT_DATE" main)
     - name: Update env
       shell: bash
       run: echo "DEPOT_TOOLS_UPDATE=0" >> $GITHUB_ENV
     - name: Update path
       shell: bash
-      run: echo "${HOME}/depot_tools" >> $GITHUB_PATH
+      run: echo "${GITHUB_WORKSPACE}/depot_tools" >> $GITHUB_PATH

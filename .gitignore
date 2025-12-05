@@ -10,3 +10,8 @@ cdk.out
 chromiums/*
 packages/*
 releases/*
+
+# Build directories
+/chromium/
+/dist/
+/depot_tools/

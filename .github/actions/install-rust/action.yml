@@ -9,27 +9,27 @@ runs:
   steps:
     - run: git apply "${GITHUB_WORKSPACE}/assets/patches/rust/dont-use-sysroot.patch"
       shell: bash
-      working-directory: /root/src
+      working-directory: ${{ github.workspace }}/chromium
     - run: git apply "${GITHUB_WORKSPACE}/assets/patches/rust/bindgen-without-sysroot.patch"
       shell: bash
-      working-directory: /root/src
+      working-directory: ${{ github.workspace }}/chromium
     - run: git apply "${GITHUB_WORKSPACE}/assets/patches/rust/patch-build-process.patch"
       shell: bash
-      working-directory: /root/src
+      working-directory: ${{ github.workspace }}/chromium
     - run: git apply "${GITHUB_WORKSPACE}/assets/patches/rust/use-aarch64.patch"
       shell: bash
-      working-directory: /root/src
+      working-directory: ${{ github.workspace }}/chromium
       if: ${{ inputs.architecture == 'arm64' }}
     - run: git apply "${GITHUB_WORKSPACE}/assets/patches/rust/use-system-openssl.patch"
       shell: bash
-      working-directory: /root/src
+      working-directory: ${{ github.workspace }}/chromium
     - run: |
         git config --global user.email "support@chromiumforlambda.org"
         git config --global user.name "Chromium for Lambda"
       shell: bash
     - run: ./tools/rust/build_rust.py --skip-test
       shell: bash
-      working-directory: /root/src
+      working-directory: ${{ github.workspace }}/chromium
     - run: ./tools/rust/build_bindgen.py
       shell: bash
-      working-directory: /root/src
+      working-directory: ${{ github.workspace }}/chromium

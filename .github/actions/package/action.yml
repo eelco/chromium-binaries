@@ -10,67 +10,67 @@ runs:
     - name: Determine version
       shell: bash
       run: echo "VERSION=$(sed --regexp-extended 's~[^0-9]+~~g' chrome/VERSION | tr '\n' '.' | sed 's~[.]$~~')" >> $GITHUB_ENV
-      working-directory: /root/src
+      working-directory: ${{ github.workspace }}/chromium
     - run: |
-        mkdir -p "${HOME}/build/system"
-        cp /usr/lib64/libdbus-1.so.3 "${HOME}/build/system"
-        cp /usr/lib64/liblzma.so.5 "${HOME}/build/system"
-        cp /usr/lib64/libnss3.so "${HOME}/build/system"
-        cp /usr/lib64/libsmime3.so "${HOME}/build/system"
-        cp /usr/lib64/libsoftokn3.so "${HOME}/build/system"
-        cp /usr/lib64/libsystemd.so.0 "${HOME}/build/system"
+        mkdir -p "${GITHUB_WORKSPACE}/dist/system"
+        cp /usr/lib64/libdbus-1.so.3 "${GITHUB_WORKSPACE}/dist/system"
+        cp /usr/lib64/liblzma.so.5 "${GITHUB_WORKSPACE}/dist/system"
+        cp /usr/lib64/libnss3.so "${GITHUB_WORKSPACE}/dist/system"
+        cp /usr/lib64/libsmime3.so "${GITHUB_WORKSPACE}/dist/system"
+        cp /usr/lib64/libsoftokn3.so "${GITHUB_WORKSPACE}/dist/system"
+        cp /usr/lib64/libsystemd.so.0 "${GITHUB_WORKSPACE}/dist/system"
       shell: bash
     - run: |
-        cp /usr/lib64/libnssutil3.so "${HOME}/build/system"
-        cp /usr/lib64/libexpat.so.1 "${HOME}/build/system"
-        cp /usr/lib64/libfreebl3.so "${HOME}/build/system"
-        cp /usr/lib64/libfreeblpriv3.so "${HOME}/build/system"
-        cp /usr/lib64/libnspr4.so "${HOME}/build/system"
-        cp /usr/lib64/libplc4.so "${HOME}/build/system"
-        cp /usr/lib64/libplds4.so "${HOME}/build/system"
+        cp /usr/lib64/libnssutil3.so "${GITHUB_WORKSPACE}/dist/system"
+        cp /usr/lib64/libexpat.so.1 "${GITHUB_WORKSPACE}/dist/system"
+        cp /usr/lib64/libfreebl3.so "${GITHUB_WORKSPACE}/dist/system"
+        cp /usr/lib64/libfreeblpriv3.so "${GITHUB_WORKSPACE}/dist/system"
+        cp /usr/lib64/libnspr4.so "${GITHUB_WORKSPACE}/dist/system"
+        cp /usr/lib64/libplc4.so "${GITHUB_WORKSPACE}/dist/system"
+        cp /usr/lib64/libplds4.so "${GITHUB_WORKSPACE}/dist/system"
       shell: bash
     - run: |
-        mkdir -p "${HOME}/build/chrome"
-        strip -o "${HOME}/build/chrome/chrome" out/Default/chrome
-        strip -o "${HOME}/build/chrome/chrome_crashpad_handler" out/Default/chrome_crashpad_handler
-        strip -o "${HOME}/build/chrome/libEGL.so" out/Default/libEGL.so
-        strip -o "${HOME}/build/chrome/libGLESv2.so" out/Default/libGLESv2.so
-        strip -o "${HOME}/build/chrome/libvulkan.so.1" out/Default/libvulkan.so.1
-        strip -o "${HOME}/build/chrome/libvk_swiftshader.so" out/Default/libvk_swiftshader.so
-        cp out/Default/chrome-wrapper "${HOME}/build/chrome"
-        cp -r out/Default/MEIPreload "${HOME}/build/chrome"
-        cp out/Default/chrome_100_percent.pak "${HOME}/build/chrome"
-        cp out/Default/chrome_200_percent.pak "${HOME}/build/chrome"
-        cp -r out/Default/locales "${HOME}/build/chrome"
-        cp -r out/Default/resources "${HOME}/build/chrome"
-        cp out/Default/resources.pak "${HOME}/build/chrome"
-        cp out/Default/product_logo_48.png "${HOME}/build/chrome"
-        cp out/Default/vk_swiftshader_icd.json "${HOME}/build/chrome"
-        cp out/Default/xdg-mime "${HOME}/build/chrome"
-        cp out/Default/xdg-settings "${HOME}/build/chrome"
+        mkdir -p "${GITHUB_WORKSPACE}/dist/chrome"
+        strip -o "${GITHUB_WORKSPACE}/dist/chrome/chrome" out/Default/chrome
+        strip -o "${GITHUB_WORKSPACE}/dist/chrome/chrome_crashpad_handler" out/Default/chrome_crashpad_handler
+        strip -o "${GITHUB_WORKSPACE}/dist/chrome/libEGL.so" out/Default/libEGL.so
+        strip -o "${GITHUB_WORKSPACE}/dist/chrome/libGLESv2.so" out/Default/libGLESv2.so
+        strip -o "${GITHUB_WORKSPACE}/dist/chrome/libvulkan.so.1" out/Default/libvulkan.so.1
+        strip -o "${GITHUB_WORKSPACE}/dist/chrome/libvk_swiftshader.so" out/Default/libvk_swiftshader.so
+        cp out/Default/chrome-wrapper "${GITHUB_WORKSPACE}/dist/chrome"
+        cp -r out/Default/MEIPreload "${GITHUB_WORKSPACE}/dist/chrome"
+        cp out/Default/chrome_100_percent.pak "${GITHUB_WORKSPACE}/dist/chrome"
+        cp out/Default/chrome_200_percent.pak "${GITHUB_WORKSPACE}/dist/chrome"
+        cp -r out/Default/locales "${GITHUB_WORKSPACE}/dist/chrome"
+        cp -r out/Default/resources "${GITHUB_WORKSPACE}/dist/chrome"
+        cp out/Default/resources.pak "${GITHUB_WORKSPACE}/dist/chrome"
+        cp out/Default/product_logo_48.png "${GITHUB_WORKSPACE}/dist/chrome"
+        cp out/Default/vk_swiftshader_icd.json "${GITHUB_WORKSPACE}/dist/chrome"
+        cp out/Default/xdg-mime "${GITHUB_WORKSPACE}/dist/chrome"
+        cp out/Default/xdg-settings "${GITHUB_WORKSPACE}/dist/chrome"
       shell: bash
-      working-directory: /root/src
+      working-directory: ${{ github.workspace }}/chromium
     - run: |
-        mkdir -p "${HOME}/build/headless_shell"
-        strip -o "${HOME}/build/headless_shell/headless_shell" out/Default/headless_shell
-        strip -o "${HOME}/build/headless_shell/libEGL.so" out/Default/libEGL.so
-        strip -o "${HOME}/build/headless_shell/libGLESv2.so" out/Default/libGLESv2.so
-        strip -o "${HOME}/build/headless_shell/libvulkan.so.1" out/Default/libvulkan.so.1
-        strip -o "${HOME}/build/headless_shell/libvk_swiftshader.so" out/Default/libvk_swiftshader.so
-        cp out/Default/vk_swiftshader_icd.json "${HOME}/build/headless_shell"
-        cp out/Default/headless_lib_data.pak "${HOME}/build/headless_shell"
-        cp out/Default/headless_lib_strings.pak "${HOME}/build/headless_shell"
+        mkdir -p "${GITHUB_WORKSPACE}/dist/headless_shell"
+        strip -o "${GITHUB_WORKSPACE}/dist/headless_shell/headless_shell" out/Default/headless_shell
+        strip -o "${GITHUB_WORKSPACE}/dist/headless_shell/libEGL.so" out/Default/libEGL.so
+        strip -o "${GITHUB_WORKSPACE}/dist/headless_shell/libGLESv2.so" out/Default/libGLESv2.so
+        strip -o "${GITHUB_WORKSPACE}/dist/headless_shell/libvulkan.so.1" out/Default/libvulkan.so.1
+        strip -o "${GITHUB_WORKSPACE}/dist/headless_shell/libvk_swiftshader.so" out/Default/libvk_swiftshader.so
+        cp out/Default/vk_swiftshader_icd.json "${GITHUB_WORKSPACE}/dist/headless_shell"
+        cp out/Default/headless_lib_data.pak "${GITHUB_WORKSPACE}/dist/headless_shell"
+        cp out/Default/headless_lib_strings.pak "${GITHUB_WORKSPACE}/dist/headless_shell"
       shell: bash
-      working-directory: /root/src
+      working-directory: ${{ github.workspace }}/chromium
     - run: |
         zip -r "system-${VERSION}-${RUNNER_LABEL/,/-}.zip" system
         zip -r "chrome-${VERSION}-${RUNNER_LABEL/,/-}.zip" chrome
         zip -r "headless_shell-${VERSION}-${RUNNER_LABEL/,/-}.zip" headless_shell
       shell: bash
-      working-directory: /home/runner/build
+      working-directory: ${{ github.workspace }}/dist
     - run: |
         aws s3 cp "system-${VERSION}-${RUNNER_LABEL/,/-}.zip" "s3://${BINARIES_BUCKET}"
         aws s3 cp "chrome-${VERSION}-${RUNNER_LABEL/,/-}.zip" "s3://${BINARIES_BUCKET}"
         aws s3 cp "headless_shell-${VERSION}-${RUNNER_LABEL/,/-}.zip" "s3://${BINARIES_BUCKET}"
       shell: bash
-      working-directory: /home/runner/build
+      working-directory: ${{ github.workspace }}/dist
