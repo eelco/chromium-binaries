@@ -29,7 +29,7 @@ jobs:
       image: amazonlinux:2023
     steps:
       - name: Install dependencies
-        run: dnf install -y tar gzip git
+        run: dnf install -y tar gzip git cmake
       - uses: actions/checkout@v4
       - uses: ./.github/actions/clone-source
       - uses: ./.github/actions/install-clang
